@@ -9,23 +9,20 @@
 class Template {
   private $data;
 
-  /*
-    Constructor
-  */
+  // Constructor
   function __construct() {}
 
-  /*
-    Functions
-  */
-  function load($url) {
-    include($url);
-  }
+    // Functions
+    function load($url) {
+      include($url);
+    }
 
-  //Get / Set Data
+  // Set Data
   function setData($name, $value) {
     $this->data[$name] = htmlentities($value, ENT_QUOTES);
   }
 
+  // Get Data
   function getData($name) {
     if (isset($this->data[$name])) {
       return $this->data[$name];
@@ -33,5 +30,10 @@ class Template {
     else {
       return '';
     }
+  }
+
+  // Redirect
+  function redirect($url) {
+    header("Location: $url");
   }
 }
