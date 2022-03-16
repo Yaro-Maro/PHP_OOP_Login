@@ -8,21 +8,22 @@
 
 class Template {
   private $data;
+  private $alertTypes;
 
   // Constructor
-  function __construct() {}
+  function __construct() {
 
     // Functions
     function load($url) {
       include($url);
     }
+  }
 
-  // Set Data
+  // Set / Get Data
   function setData($name, $value) {
     $this->data[$name] = htmlentities($value, ENT_QUOTES);
   }
 
-  // Get Data
   function getData($name) {
     if (isset($this->data[$name])) {
       return $this->data[$name];
@@ -35,5 +36,29 @@ class Template {
   // Redirect
   function redirect($url) {
     header("Location: $url");
+  }
+
+  // Set / Get Alerts
+  function setAlertTypes($types) {
+    $this->alertTypes = $types; // 'success', 'warning', 'error'
+  }
+  function setAlert($type, $value) {
+    $_SESSION[$type][] = $value;
+  }
+
+  function getAlerts() {
+    $data = '';
+    foreach($this->alertTypes as $types) // loop through each alert type (associate array)
+    {
+      if (isset($_SESSION[$types])) // loop through each item within the type (numbered array)
+      {
+        foreach ($_SESSION[$types] as $value)
+        {
+          $data .= '<li class="' . $types . '">' . $value . '</li>';
+        }
+        unset($_SESSION[$types]);
+      }
+    }
+    return $data;
   }
 }
