@@ -13,10 +13,12 @@ class Template {
   // Constructor
   function __construct() {
 
-    // Functions
-    function load($url) {
-      include($url);
-    }
+
+  }
+
+  // Functions
+  function load($url) {
+    include($url);
   }
 
   // Set / Get Data
@@ -47,18 +49,18 @@ class Template {
   }
 
   function getAlerts() {
-    $data = '';
+    $alertMessage = '';
     foreach($this->alertTypes as $types) // loop through each alert type (associate array)
     {
       if (isset($_SESSION[$types])) // loop through each item within the type (numbered array)
       {
         foreach ($_SESSION[$types] as $value)
         {
-          $data .= '<li class="' . $types . '">' . $value . '</li>';
+          $alertMessage .= '<li class="' . $types . '">' . $value . '</li>';
         }
         unset($_SESSION[$types]);
       }
     }
-    return $data;
+    return $alertMessage;
   }
 }

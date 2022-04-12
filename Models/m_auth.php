@@ -1,5 +1,4 @@
 <?php
-
 /*
   Authorization Class
   Deal with auth tasks
