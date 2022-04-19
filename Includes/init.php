@@ -6,11 +6,11 @@
 
 //create objects
 include("models/m_template.php");
-include("models/auth.php");
+include("models/m_auth.php");
 $Template = new Template();
 $Template->setAlertTypes(['success', 'warning', 'error']);
 
-$Authorization = new Authorization();
+$Auth = new Auth();
 
 // start session
 session_start();

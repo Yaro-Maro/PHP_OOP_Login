@@ -4,31 +4,24 @@
   Deal with auth tasks
 */
 
-class Auth
-{
+class Auth {
   private $salt = 'j4H9?s0d';
 
   // Constructor
-  function __construct(){}
+  function __construct() {}
 
-  /*
-  Functions
-  */
   //Validate Login
   function validateLogin($username, $password) {
     global $Database;
-
-    // Create query
+    // Execute query
     if ($statement = $Database->prepare("SELECT * FROM users WHERE username = ? AND password = ?")) {
       $statement->bind_param("ss", $username, md5($password . $this->salt));
       $statement->execute();
       $statement->store_result();
-      // Check result
+      // Return result
       if ($statement > 0) {
-        // Success
         $statement->close();
         return TRUE;
-
       }
       else {
         $statement->close();
@@ -41,7 +34,6 @@ class Auth
     }
   }
 
-
   // Check Login Status
   function checkLoginStatus() {
     if (isset($_SESSION['loggedin'])) {
@@ -52,12 +44,8 @@ class Auth
     }
   }
   // Logout
-  function logout()
-  {
+  function logout() {
     session_destroy();
     session_start();
   }
-
-
-
 }

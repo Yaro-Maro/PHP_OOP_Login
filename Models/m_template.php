@@ -11,10 +11,7 @@ class Template {
   private $alertTypes;
 
   // Constructor
-  function __construct() {
-
-
-  }
+  function __construct() {}
 
   // Functions
   function load($url) {
@@ -44,6 +41,7 @@ class Template {
   function setAlertTypes($types) {
     $this->alertTypes = $types; // 'success', 'warning', 'error'
   }
+
   function setAlert($type, $value) {
     $_SESSION[$type][] = $value;
   }

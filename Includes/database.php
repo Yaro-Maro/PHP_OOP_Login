@@ -12,7 +12,7 @@ $pass = 'root';
 $dbname = 'oop_login';
 
 // connect to the database
-$Database = new mysqli('$server', '$username', '$pass', '$dbname');
+$Database = new mysqli($server, $username, $pass, $dbname);
 
 // error reporting
 mysqli_report(MYSQLI_REPORT_ERROR);
