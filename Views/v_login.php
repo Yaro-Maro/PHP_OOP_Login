@@ -9,14 +9,16 @@
   <body>
     <h1>Login</h1>
     <div id="content">
+      <!-- Alerts -->
+      <?php
+        $alerts = $this->getAlerts();
+        if ($alerts != '') {
+          echo '<ul class="alerts">' . $alerts . '</ul>';
+        }
+      ?>
       <!-- Form -->
       <form class="" action="" method="post">
-        <?php
-          $alerts = $this->getAlerts();
-          if ($alerts != '') {
-            echo '<ul class="alerts">' . $alerts . '</ul>';
-          }
-        ?>
+
         <!-- Username -->
         <label>Username: *
           <input type="text" name="username" value="<?php echo $this->getData('input_user') ?>">

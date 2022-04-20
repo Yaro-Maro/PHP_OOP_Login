@@ -16,11 +16,13 @@ if (isset($_POST['submit'])) {
       $Template->setData('error_pass', 'required field!');
     }
     $Template->setAlert('error', 'Please fill in all required fields');
+    $Template->load("views/v_login.php");
   }
 
   // display an error, if the login cridentials are not correct
   else if ($Auth->validateLogin($Template->getData('input_user'), $Template->getData('input_pass')) == FALSE) {
     $Template->setAlert('error', 'Invalid username or password!');
+    $Template->load("views/v_login.php");
   }
 
   // else log user in
@@ -30,9 +32,6 @@ if (isset($_POST['submit'])) {
     $Template->setAlert('success', 'Welcome <i>' . $Template->getData('input_user') . '</i>');
     $Template->redirect('members.php');
   }
-
-  // display login view
-  $Template->load("views/v_login.php");
 }
 
 else {
