@@ -15,11 +15,12 @@ class Auth {
     global $Database;
     // Execute query
     if ($statement = $Database->prepare("SELECT * FROM users WHERE username = ? AND password = ?")) {
-      $statement->bind_param("ss", $username, md5($password . $this->salt));
+      $__password = md5($password . $this->salt);
+      $statement->bind_param("ss", $username, $__password);
       $statement->execute();
       $statement->store_result();
       // Return result
-      if ($statement > 0) {
+      if ($statement->num_rows > 0) {
         $statement->close();
         return TRUE;
       }

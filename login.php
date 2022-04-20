@@ -1,7 +1,6 @@
 <?php
-
-include("includes/database.php");
 include("includes/init.php");
+include("includes/database.php");
 
 if (isset($_POST['submit'])) {
   // get data
@@ -9,24 +8,26 @@ if (isset($_POST['submit'])) {
   $Template->setData('input_pass', $_POST['password']);
 
   // display an error if the sent form is empty
-  if ($_POST['username'] === '' || $_POST['password'] === '') {
-    if ($_POST['username'] === '') {
+  if ($Template->getData('input_user') == '' || $Template->getData('input_pass') == '') {
+    if ($Template->getData('input_user') == '') {
       $Template->setData('error_user', 'required field!');
     }
-    if ($_POST['password'] === '') {
+    if ($Template->getData('input_pass') == '') {
       $Template->setData('error_pass', 'required field!');
     }
-    $Template->setAlert('Please fill in all required fields', 'error');
+    $Template->setAlert('error', 'Please fill in all required fields');
   }
 
   // display an error, if the login cridentials are not correct
-  else if ($Auth->validateLogin($Template->getData('input_user'), $Template->getData('input_pass')) === FALSE) {
-    $Template->setAlert('Invalid username or password!', 'error');
+  else if ($Auth->validateLogin($Template->getData('input_user'), $Template->getData('input_pass')) == FALSE) {
+    $Template->setAlert('error', 'Invalid username or password!');
   }
 
   // else log user in
   else {
-    $Template->setAlert('Welcome <i>' . $Template->getData('input_user') . '</i>', 'success');
+    $_SESSION['username'] = $Template->getData('input_user');
+    $_SESSION['loggedin'] = TRUE;
+    $Template->setAlert('success', 'Welcome <i>' . $Template->getData('input_user') . '</i>');
     $Template->redirect('members.php');
   }
 
@@ -35,5 +36,6 @@ if (isset($_POST['submit'])) {
 }
 
 else {
+  // display login view if the post is not submitted
   $Template->load("views/v_login.php");
 }

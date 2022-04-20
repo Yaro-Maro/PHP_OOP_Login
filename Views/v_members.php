@@ -9,12 +9,7 @@
   <body>
     <h1>Members</h1>
     <div id="content">
-      <?php
-        $alerts = $this->getAlerts();
-        if ($alerts != '') { echo '<ul class="alerts"' . $alerts . '</ul>';}
-      ?>
-
-      <p>You have logged in successfully!</p>
+      <p>You have logged in successfully, <?php echo '<i>' . $_SESSION['username'] . '</i>'; ?>!</p>
 
       <p><a href="logout.php">Log Out</a></p>
 
